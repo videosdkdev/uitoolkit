@@ -27,7 +27,13 @@ var config = {
     sessionName: 'SessionA',
     userName: 'UserA',
     sessionPasscode: 'abc123',
-    features: ['preview', 'video', 'audio', 'settings', 'users', 'chat', 'share']
+    features: ['preview', 'video', 'audio', 'settings', 'users', 'chat', 'share'],
+    options: { init: {}, audio: {}, video: {}, share: {}},
+    virtualBackground: {
+       allowVirtualBackground: true,
+       allowVirtualBackgroundUpload: true,
+       virtualBackgrounds: ['https://images.unsplash.com/photo-1715490187538-30a365fa05bd?q=80&w=1945&auto=format&fit=crop']
+    }
 };
 
 window.getVideoSDKJWT = getVideoSDKJWT
