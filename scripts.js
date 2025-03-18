@@ -90,15 +90,51 @@ function getVideoSDKJWT() {
 }
 
 function joinSession() {
-  uitoolkit.joinSession(sessionContainer, config);
+  const newConfig = uitoolkit.migrateConfig(config);
+  uitoolkit.joinSession(sessionContainer, newConfig);
 
   document.getElementById("header").style.display = "none";
   document.getElementById("join-flow").style.display = "none";
 
+  uitoolkit.onSessionJoined(sessionJoined);
+  uitoolkit.onSessionClosed(sessionClosed);
+  uitoolkit.onSessionDestroyed(sessionDestroyed);
+  uitoolkit.joinSession(sessionContainer, config);
   uitoolkit.onSessionClosed(sessionClosed);
 }
 
+var sessionTimer;
+var sessionTimeout = 10 * 60 * 1000; // 10 minutes in milliseconds
+var warningTime = 9 * 60 * 1000; // 9 minutes - shows warning with 1 minute remaining
+
+var sessionJoined = () => {
+  console.log("session joined");
+  // Start the session timer
+  sessionTimer = setTimeout(() => {
+    console.log("Session timeout - leaving session");
+    uitoolkit.leaveSession();
+  }, sessionTimeout);
+
+  // Set warning timer
+  setTimeout(() => {
+    alert("Warning: You demo session will timeout in 1 minute!");
+  }, warningTime);
+};
+
 var sessionClosed = () => {
   console.log("session closed");
-  uitoolkit.closeSession(sessionContainer);
+  if (sessionTimer) {
+    clearTimeout(sessionTimer);
+  }
+  document.getElementById("header").style.display = "flex";
+  document.getElementById("join-flow").style.display = "block";
+  document.getElementById("rating").style.display = "block";
+  const joinButton = document.querySelector(".join-flow button");
+  joinButton.disabled = false;
+  joinButton.textContent = "Join Session";
+};
+
+var sessionDestroyed = () => {
+  console.log("session destroyed");
+  uitoolkit.destroy();
 };
