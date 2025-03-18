@@ -77,7 +77,9 @@ app-previewkit {
 .join-flow input {
     border: 1px solid gray;
 }
-
+.join-flow select {
+    border: 1px solid gray;
+}
 .join-flow input, .join-flow button, select {
     width: 100%;
     margin-bottom: 10px;
