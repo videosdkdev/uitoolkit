@@ -104,10 +104,8 @@ function joinSession() {
 }
 
 var sessionTimer;
-// var sessionTimeout = 10 * 60 * 1000; // 10 minutes in milliseconds
-// var warningTime = 9 * 60 * 1000; // 9 minutes - shows warning with 1 minute remaining
-var sessionTimeout = 1 * 60 * 1000; // 10 minutes in milliseconds
-var warningTime = 0.5 * 60 * 1000; // 9 minutes - shows warning with 1 minute remaining
+var sessionTimeout = 10 * 60 * 1000; // 10 minutes in milliseconds
+var warningTime = 9 * 60 * 1000; // 9 minutes - shows warning with 1 minute remaining
 
 var sessionJoined = () => {
   console.log("session joined");
